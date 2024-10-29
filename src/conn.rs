@@ -140,8 +140,9 @@ impl<T: EventMessage + Unpin> Stream for Connection<T> {
 
             // read from the ws
             match ready!(pin.ws.poll_next_unpin(cx)) {
-                Some(Ok(WsMessage::Text(text))) => {
-                    let ready = match serde_json::from_str::<Message<T>>(&text) {
+                Some(Ok(WsMessage::Text(mut text))) => {
+                    let ready = match unsafe { simd_json::serde::from_str::<Message<T>>(&mut text) }
+                    {
                         Ok(msg) => {
                             tracing::trace!("Received {:?}", msg);
                             Ok(msg)

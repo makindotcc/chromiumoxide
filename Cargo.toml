@@ -24,6 +24,7 @@ chromiumoxide_types = { path = "chromiumoxide_types", version = "0.7" }
 chromiumoxide_cdp = { path = "chromiumoxide_cdp", version = "0.7" }
 chromiumoxide_fetcher = { path = "chromiumoxide_fetcher", version = "0.7", default-features = false, optional = true }
 serde_json = "1"
+simd-json = "0.14"
 which = "6"
 thiserror = "1"
 url = "2"
@@ -65,9 +66,15 @@ serde0 = []
 
 # Temporary features until cargo weak dependencies bug is fixed
 # See https://github.com/rust-lang/cargo/issues/10801
-_fetcher-rustls-async-std = ["fetcher", "chromiumoxide_fetcher/_rustls-async-std"]
+_fetcher-rustls-async-std = [
+    "fetcher",
+    "chromiumoxide_fetcher/_rustls-async-std",
+]
 _fetcher-rusttls-tokio = ["fetcher", "chromiumoxide_fetcher/_rustls-tokio"]
-_fetcher-native-async-std = ["fetcher", "chromiumoxide_fetcher/_native-async-std"]
+_fetcher-native-async-std = [
+    "fetcher",
+    "chromiumoxide_fetcher/_native-async-std",
+]
 _fetcher-native-tokio = ["fetcher", "chromiumoxide_fetcher/_native-tokio"]
 
 [[example]]
